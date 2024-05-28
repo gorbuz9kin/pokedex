@@ -1,0 +1,13 @@
+.breadCrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  margin-bottom: 24px;
+  a {
+    color: #000;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

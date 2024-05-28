@@ -1,0 +1,17 @@
+.container {
+  padding: 24px;
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.pokemons__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  @media (max-width: 767px) {
+    display: block;
+  }
+}
