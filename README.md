@@ -24,8 +24,8 @@ npm start
 - ./src/modules/containers/ - pages wrapper and main layout container for each page;
 - ./src/modules/stores/ - configs for redux-toolkit stores;
 - ./src/modules/styles/ - reset styles for the app, styles shared across different components;
-- ./src/utils/ - helper functions for application, reusable functions;
-- ./src/types/ - types of the components
+- ./src/modules/utils/ - helper functions for application, reusable functions;
+- ./src/modules/types/ - types of the components
 
 ## Styles rules:
 
