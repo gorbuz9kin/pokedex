@@ -20,7 +20,8 @@
       "@/*": ["./src/modules/*"],
       "@images/*": ["./src/assets/*"]
     },
-    "typeRoots": ["./@types/", "./node_modules/@types"]
+    "typeRoots": ["./@types/", "./node_modules/@types"],
+    "downlevelIteration": true
   },
   "include": ["src"]
 }

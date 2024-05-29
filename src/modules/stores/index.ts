@@ -1,9 +1,19 @@
-import { configureStore, ConfigureStoreOptions } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  ConfigureStoreOptions,
+  combineReducers,
+} from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+
+import pokemons from './pokemons';
+
+const rootReducer = combineReducers({
+  pokemons,
+});
 
 const createStore = (options?: ConfigureStoreOptions['preloadedState']) =>
   configureStore({
-    reducer: {},
+    reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware(),
     ...options,
   });

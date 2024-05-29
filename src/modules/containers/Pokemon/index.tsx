@@ -1,30 +1,13 @@
-import { useCallback, useEffect } from 'react';
-
 import { useParams } from 'react-router-dom';
 
-import { useApi } from '@/hooks';
-import { Loader, ErrorMessage, Breadcrumbs } from '@/components';
-import { BASE_URL } from '@/configs';
+import { useFetchPokemon } from '@/api';
+import { Loader, Breadcrumbs } from '@/components';
 import { PokemonDetailsType } from '@/types';
 import styles from './pokemon.module.scss';
 
 const Pokemon = () => {
-  const { isLoading, data, error, fetchData } = useApi();
   const { id } = useParams();
-
-  const getPokemonData = useCallback(async () => {
-    await fetchData({
-      path: `${BASE_URL}pokemon/${id}`,
-    });
-  }, []);
-
-  useEffect(() => {
-    getPokemonData();
-  }, []);
-
-  if (error) {
-    return <ErrorMessage text={error as string} />;
-  }
+  const { isLoading, data } = useFetchPokemon(id as string);
 
   if (isLoading || !data) {
     return <Loader />;

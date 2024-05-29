@@ -26,3 +26,8 @@ export type PokemonDetailsType = {
   }[];
   id: number;
 };
+
+export enum QueryKeys {
+  POKEMONS = 'pokemons',
+  POKEMON = 'pokemon',
+}

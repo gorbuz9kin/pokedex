@@ -1,34 +1,34 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { useApi } from '@/hooks';
-import { PokemonCard, Loader, ErrorMessage } from '@/components';
-import { BASE_URL } from '@/configs';
+import { useFetchPokemons } from '@/api';
+import { PokemonCard, Loader, Pagination } from '@/components';
+import { PAGES_COUNT } from '@/configs';
+import { getPokemonIdFromUrl } from '@/utils';
 import { Pokemon, PokemonsResponseType } from '@/types';
 import styles from './homepage.module.scss';
 
 const Homepage = () => {
-  const { isLoading, data, error, fetchData } = useApi();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlParams = Object.fromEntries([...searchParams]);
+  const currentPage = urlParams?.page ? Number(urlParams?.page) - 1 : 0;
+  const { isLoading, data } = useFetchPokemons(currentPage);
   const navigate = useNavigate();
 
-  const getPokemons = useCallback(async (offset: number) => {
-    await fetchData({
-      path: `${BASE_URL}pokemon?limit=20&offset=${offset}`,
-    });
-  }, []);
+  const onSelectPokemon = useCallback(
+    (value: string) => {
+      navigate(`/${value}`);
+    },
+    [navigate],
+  );
 
-  useEffect(() => {
-    getPokemons(0);
-  }, []);
-
-  const onSelectPokemon = useCallback((value: string) => {
-    navigate(`/${value}`);
-  }, []);
-
-  if (error) {
-    return <ErrorMessage text={error as string} />;
-  }
+  const onPageChange = useCallback(
+    (event: { selected: number }) => {
+      setSearchParams({ page: `${event.selected + 1}` });
+    },
+    [setSearchParams],
+  );
 
   if (isLoading || !data) {
     return <Loader />;
@@ -39,16 +39,23 @@ const Homepage = () => {
   return (
     <div className={styles.container}>
       <h1 className={`roboto-bold ${styles.title}`}>Pokedex</h1>
-      <div className={styles.pokemons__list}>
-        {results?.map((pokemon: Pokemon, index: number) => (
-          <PokemonCard
-            key={pokemon.name}
-            title={pokemon.name}
-            bannerUrl={process.env.PUBLIC_URL + `/assets/${index + 1}.png`}
-            onClick={() => onSelectPokemon(pokemon.name)}
-          />
-        ))}
+      <div className={styles.wrapper}>
+        <div className={styles.pokemons__list}>
+          {results?.map((pokemon: Pokemon) => (
+            <PokemonCard
+              key={pokemon.name}
+              title={pokemon.name}
+              id={getPokemonIdFromUrl(pokemon.url)}
+              onClick={() => onSelectPokemon(pokemon.name)}
+            />
+          ))}
+        </div>
       </div>
+      <Pagination
+        currentPage={currentPage}
+        pageCount={PAGES_COUNT}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };

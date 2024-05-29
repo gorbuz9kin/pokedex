@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# Start the project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Step 1: Setup dependencies
 
-## Available Scripts
+Project uses a package manager Npm
 
-In the project directory, you can run:
+- Clone the repo
+- Run next commands
+  `npm i` - install common dependencies and packages
 
-### `npm start`
+## Step 2: Start the project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+npm start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Project structure:
 
-### `npm test`
+- ./src/index.tsx - main entry point for the application;
+- ./src/modules/app.tsx - application navigator and base URL structure;
+- ./src/modules/api/ - api requests for fetching data;
+- ./src/modules/components/ - UI components, reusable parts;
+- ./src/modules/configs/ - configs for colors, fonts, images, constants;
+- ./src/modules/containers/ - pages wrapper and main layout container for each page;
+- ./src/modules/stores/ - configs for redux-toolkit stores;
+- ./src/utils/ - helper functions for application, reusable functions;
+- ./src/types/ - types of the components
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Styles rules:
 
-### `npm run build`
+It is not allowed to use inline styles for containers, all styles must be in separate files.
+For components: if styles less then height of your screen it allowed to insert them to the same file.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Import rules:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. React modules
+2. Third-party libraries
+3. Custom modules (reducers, sagas, components, helpers)
+4. Constants/configs
+5. Types
+6. Styles
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## GIT Flow:
 
-### `npm run eject`
+1. Each feature must be implemented in separate branch.
+2. When you create PullRequest target branch is 'dev'.
+3. When you implemented a part of the feature you should create a pull request (PR) with comment "in progress" | "draft" and send a link
+   on that PR to another developer.
+4. When you completed implementing some feature you should change status/comment of your PR from 'in progress' | "draft" to 'completed'
+   and update another developer about it.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Naming convention:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Features/containers/components/store folders - PascalCase
+2. General folders - camelCase
+3. Files - camelCase
+4. Constants - camelCase
+5. Function - camelCase
+6. Props - camelCase
+   Tutorial: https://github.com/airbnb/javascript/tree/master/react
